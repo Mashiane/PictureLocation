@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html manifest="index.appcache">
+<head>
+<title>Picture Location</title>
+<meta charset='utf-8'/>
+<meta name='format-detection' content='telephone=no' />
+<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1'/>
+<meta name='apple-mobile-web-app-cabable' content='YES'/>
+<meta name='keywords' content='JQM.Show,JQuery Mobile,JQuery,JavaScript,Anele Mbanga,Mobile,Hybrid,HTML,CSS,Responsive,HTML5'/>
+<meta name='mobile-web-app-capable' content='yes'/>
+<meta name='apple-mobile-web-app-title' content='Picture Location'/>
+<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent.'/>
+<meta name='version' content='1.00' />
+<meta name='generator' content='JQM.Show 1.00' />
+<meta name='date' content='2015-02-24 13:09' />
+<meta name='copyright' content='Anele Mbanga' />
+<meta name='author' content='Anele Mbanga' />
+<meta name='email' content='' />
+<meta name='website' content='' />
+<meta name='description' content='' />
+<link rel="apple-touch-icon" href="apps.png">
+<link rel="icon" type="image/png" href="apps.png">
+<link rel="shortcut icon" type="image/png" href="apps.png">
+<link rel="apple-touch-icon" sizes="57x57" href="apps57.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apps72.png">
+<link rel="apple-touch-icon" sizes="80x80" href="apps80.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apps114.png">
+<link rel="apple-touch-icon-precomposed" href="appsIconPreComposed.png">
+<link rel="apple-touch-startup-image" href="appsIconStartUp320by460.png">
+<link rel="stylesheet" href="jquerym.css">
+<link rel="stylesheet" href="listview-grid.css">
+<script src="jquery.js" type="text/javascript"></script>
+<script src="jquerym.js" type="text/javascript"></script>
+<script src="fastclick.js" type="text/javascript"></script>
+<!--[if IE]>
+<script src="html5.js" type="text/javascript"></script>
+<![endif]-->
+<script src="cordova.js" type="text/javascript"></script>
+<style>.ui-header .ui-title, .ui-footer .ui-title {margin-right: 0 !important; margin-left: 0 !important;}
+marker {max-width: 100%; max-height: 100%;}
+</style>
+</head>
+<body><div id="pgMenu" data-role="page" data-themeAddAttribute="b" class="my-page">
+
+<header id="pgMenuheader" data-role="header" data-position="fixed">
+<h1>Picture Location</h1>
+</header>
+<div id="pgMenucontent" data-role="content" class="content">
+<ul data-role="listview" data-inset="true" id="sbItems">
+<li data-icon="false"><a data-transition="slide" id="sbHome" href="#pgAddHome"><h2>Homes</h2><p>Maintain Homes</p><label id="lbl"></label><img height="200" width="100%" src="appblue.png" alt="Homes" class="ui-li-thumb"></img></a></li>
+</ul>
+</div>
+
+<footer id="pgMenufooter" data-role="footer" data-position="fixed">
+<h1>Powered by JQM.Show © Anele Mbanga 2015</h1>
+</footer></div>
+<div id="pgHome" data-role="page">
+
+<header id="pgHomeheader" data-role="header" data-position="fixed">
+<h1>Homes</h1>
+<a data-role="button" id="pgHomeBack" data-icon="arrow-l" class="ui-btn-left">Back</a>
+<a data-role="button" id="pgHomeNew" data-icon="plus" data-theme="b" class="ui-btn-right">New</a>
+</header>
+<div id="pgHomecontent" data-role="content" class="content">
+<ul data-role="listview" data-inset="true" id="pgHomeList" data-autodividers="true" data-filter="true" data-filter-placeholder="Search Homes" data-filter-reveal="false">
+<li data-role="list-divider">HomeHdr</li>
+<li id="noHome">You have no homes</li>
+
+</ul>
+</div>
+
+</div>
+
+<div id="pgAddHome" data-role="page">
+
+<header id="pgAddHomeheader" data-role="header" data-position="fixed">
+<h1>Add Home</h1>
+<a data-role="button" id="pgAddHomeBack" data-icon="arrow-l" class="ui-btn-left">Back</a>
+</header>
+<div id="pgAddHomecontent" data-role="content" class="content">
+<form action="/" method="post">
+<div data-role="fieldcontain">
+<label for="pgAddHomeAddress" id="lblpgAddHomeAddress">Address<span style='color:red;'>*</span></label>
+<input type="text" required="required" title="Enter address here." name="pgAddHomeAddress" id="pgAddHomeAddress" placeholder="Enter address here." data-clear-btn="true" value=""></input>
+</div>
+<div data-role="fieldcontain">
+<label for="pgAddHomePicture" id="lblpgAddHomePicture">Picture</label>
+
+<div><button id="pgAddHomePictureTakePicture" class="ui-btn ui-corner-all ui-shadow">Take Picture</button>
+</div>
+<img id="pgAddHomePicture" height="300" width="100%" src="apps.png" alt="Apps"></img>
+</div>
+<div data-role="fieldcontain">
+<label for="pgAddHomeLocation" id="lblpgAddHomeLocation">Location</label>
+
+<div><button id="pgAddHomeLocationGetLoc" class="ui-btn ui-corner-all ui-shadow">Get My Location</button>
+</div>
+
+<div><button id="pgAddHomeLocationShowLoc" class="ui-btn ui-corner-all ui-shadow">Show My Location</button>
+</div>
+<div data-role="fieldcontain">
+<label for="pgAddHomeLocationLat" id="lblpgAddHomeLocationLat">Latitude</label>
+<input type="text" name="pgAddHomeLocationLat" id="pgAddHomeLocationLat" placeholder="Your latitude" value=""></input>
+</div>
+<div data-role="fieldcontain">
+<label for="pgAddHomeLocationLng" id="lblpgAddHomeLocationLng">Longitude</label>
+<input type="text" name="pgAddHomeLocationLng" id="pgAddHomeLocationLng" placeholder="Your longitude" value=""></input>
+</div>
+<div data-role="fieldcontain">
+<div style="width:100%;height:300px;" id="pgAddHomeLocationmap">
+</div>
+</div>
+</div>
+<div><button type="submit" id="pgAddHomeSave" class="ui-btn ui-corner-all ui-shadow ui-btn-b">Save Home</button>
+</div>
+</form>
+</div>
+
+</div>
+
+<div data-url="Address" id="pgEditHome" data-role="page">
+
+<header id="pgEditHomeheader" data-role="header" data-position="fixed">
+<h1>Edit Home</h1>
+<a data-role="button" id="pgEditHomeBack" data-icon="arrow-l" class="ui-btn-left">Back</a>
+<a data-role="button" data-href="ID" id="pgEditHomeDelete" data-icon="delete" data-theme="b" class="ui-btn-right">Delete</a>
+</header>
+<div id="pgEditHomecontent" data-role="content" class="content">
+<form action="/" method="post">
+<div data-role="fieldcontain">
+<label for="pgEditHomeAddress" id="lblpgEditHomeAddress">Address<span style='color:red;'>*</span></label>
+<input readonly="readonly" data-clear-btn="true" autofocus="true" type="text" required="required" title="Enter address here." name="pgEditHomeAddress" id="pgEditHomeAddress" placeholder="Enter address here." value=""></input>
+</div>
+<div data-role="fieldcontain">
+<label for="pgEditHomePicture" id="lblpgEditHomePicture">Picture</label>
+
+<div><button id="pgEditHomePictureTakePicture" class="ui-btn ui-corner-all ui-shadow">Take Picture</button>
+</div>
+<img id="pgEditHomePicture" height="300" width="100%" src="apps.png" alt="Apps"></img>
+</div>
+<div data-role="fieldcontain">
+<label for="pgEditHomeLocation" id="lblpgEditHomeLocation">Location</label>
+
+<div><button id="pgEditHomeLocationGetLoc" class="ui-btn ui-corner-all ui-shadow">Get My Location</button>
+</div>
+
+<div><button id="pgEditHomeLocationShowLoc" class="ui-btn ui-corner-all ui-shadow">Show My Location</button>
+</div>
+<div data-role="fieldcontain">
+<label for="pgEditHomeLocationLat" id="lblpgEditHomeLocationLat">Latitude</label>
+<input type="text" name="pgEditHomeLocationLat" id="pgEditHomeLocationLat" placeholder="Your latitude" value=""></input>
+</div>
+<div data-role="fieldcontain">
+<label for="pgEditHomeLocationLng" id="lblpgEditHomeLocationLng">Longitude</label>
+<input type="text" name="pgEditHomeLocationLng" id="pgEditHomeLocationLng" placeholder="Your longitude" value=""></input>
+</div>
+<div data-role="fieldcontain">
+<div style="width:100%;height:300px;" id="pgEditHomeLocationmap">
+</div>
+</div>
+</div>
+<div><button type="submit" id="pgEditHomeUpdate" class="ui-btn ui-corner-all ui-shadow ui-btn-b">Update Home</button>
+</div>
+</form>
+</div>
+
+</div>
+<section data-transition="pop" id="msgbox" data-role="dialog">
+
+<header id="msgboxheader" data-role="header" data-position="fixed">
+<h1>Confirm</h1>
+</header>
+<div id="msgboxcontent" data-role="content" class="content">
+<div id="msgboxtitle">
+</div>
+<br><div id="msgboxprompt">
+<p>Are you sure you want to delete this record?</p>
+</div>
+<br><div style="text-align: center;" id="msgboxbuttons" class="ui-grid-a">
+<div class="ui-block-a">
+<a data-method="" data-id="" data-topage="" id="msgboxyes" data-role="button" data-icon="check">Yes</a>
+</div>
+<div class="ui-block-b">
+<a data-method="" data-id="" data-topage="" id="msgboxno" data-role="button" data-icon="delete" data-theme="b">No</a>
+</div>
+</div>
+</div>
+
+</section>
+<section data-transition="pop" id="alertbox" data-role="dialog">
+
+<header id="alertboxheader" data-role="header" data-position="fixed">
+<h1>Error</h1>
+</header>
+<div id="alertboxcontent" data-role="content" class="content">
+<div id="alertboxtitle">
+</div>
+<br><div id="alertboxprompt">
+<p>An error has been encountered!</p>
+</div>
+<br><div style="text-align: center;" id="alertboxbuttons" class="ui-grid-solo">
+<div class="ui-block-a">
+<a data-method="" data-id="" data-topage="" id="alertboxok" data-role="button" data-icon="check" data-theme="b">Ok</a>
+</div>
+</div>
+</div>
+
+</section>
+<script>$(function(){
+// define the application
+var PictureLocation = {};
+var pictureSource;
+var destinationType;
+var isPhoneGapReady = false;
+(function(app){
+// variable definitions go here
+var HomeLi = '<li ><a href="#pgEditHome?Address=LINK">ID</a></li>';
+var HomeHdr = '<li data-role="list-divider">HomeHdr</li>';
+var noHome = '<li id="noHome">You have no homes</li>';
+
+
+app.init = function(){
+FastClick.attach(document.body);
+app.Homesbindings();
+app.checkForHomesStorage();
+app.BindDevice();
+$('#msgboxyes').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+var yesmethod = $('#msgboxyes').data('method');
+var yesid = $('#msgboxyes').data('id');
+app[yesmethod](yesid);
+});
+
+$('#msgboxno').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+var toPage = $('#msgboxno').data('topage');
+// show the page to display after a record is deleted
+$.mobile.changePage('#'+toPage, {transition: 'slide'});
+});
+
+$('#alertboxok').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+var toPage = $('#alertboxok').data('topage');
+// show the page to display after ok is clicked
+$.mobile.changePage('#'+toPage, {transition: 'slide'});
+});
+
+$(document).on('click', '#sbItems a', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+var href = $(this).attr('href');
+$.mobile.changePage(href, {transition: 'slide'});
+});
+
+};
+
+app.Homesbindings = function(){
+$(document).on('click', '#pgHomeList a', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+var href = $(this)[0].href.match(/\?.*$/)[0];
+var Address = href.replace(/^\?Address=/,'');
+$.mobile.changePage('#pgEditHome', {transition: 'slide'});
+app.editHome(Address);
+});
+
+$(document).on('pagebeforechange', function(e, data){
+var toPage = data.toPage[0].id;
+if(toPage == 'pgHome'){
+// restart the storage check
+app.checkForHomesStorage();
+}
+});
+
+// bind the back button of the list
+$('#pgHomeBack').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+// move to the add new record screen
+$.mobile.changePage('#pgMenu', {transition: 'slide'});
+});
+// click new on listing page
+$('#pgHomeNew').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+$('#pgAddHome').data('from', pgHome);
+// move to the add new record screen
+$.mobile.changePage('#pgAddHome', {transition: 'slide'});
+});
+// click back button of new record page
+$('#pgAddHomeBack').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+//which page are we coming from, if from sign in go back to it
+var pgFrom = $('#pgAddHome').data('from');
+switch (pgFrom) {
+case "pgSignIn":
+$.mobile.changePage('#pgSignIn', {transition: 'slide'});
+break;
+default:
+// go back to the listing screen
+$.mobile.changePage('#pgHome', {transition: 'slide'});
+}
+});
+// click save button of new record
+$('#pgAddHomeSave').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+// save the Home
+var HomeRec;
+HomeRec = pgAddHomeGetRec();
+app.addHome(HomeRec);
+});
+// click back button of edit record page
+$('#pgEditHomeBack').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+// go back to the listing screen
+$.mobile.changePage('#pgHome', {transition: 'slide'});
+});
+// click update when editing a record
+$('#pgEditHomeUpdate').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+// save the Home
+var HomeRecNew;
+HomeRecNew = pgEditHomeGetRec();
+app.updateHome(HomeRecNew);
+});
+// click delete on edit page
+$('#pgEditHomeDelete').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+var Address = $('#pgEditHomeAddress').val();
+Address = Address.replace(/-/g,' ');
+Address = Address.replace(/-/g,' ');
+$('#msgboxheader h1').text('Confirm Delete');
+$('#msgboxtitle').text(Address);
+$('#msgboxprompt').text('Are you sure that you want to delete this home?');
+$('#msgboxyes').data('method', 'deleteHome');
+Address = Address.replace(/ /g,'-');
+$('#msgboxyes').data('id', Address);
+$('#msgboxno').data('topage', 'pgEditHome');
+$.mobile.changePage('#msgbox', {transition: 'pop'});
+});
+
+$('#pgAddHomePictureTakePicture').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+app.pgAddHomePictureGet();
+});
+
+$('#pgEditHomePictureTakePicture').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+app.pgEditHomePictureGet();
+});
+
+$('#pgAddHomeLocationGetLoc').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+app.pgAddHomeLocationGetLoc();
+});
+$('#pgAddHomeLocationShowLoc').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+app.pgAddHomeLocationShowLoc();
+});
+
+$('#pgEditHomeLocationGetLoc').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+app.pgEditHomeLocationGetLoc();
+});
+$('#pgEditHomeLocationShowLoc').on('click', function(e){
+e.preventDefault();
+e.stopImmediatePropagation();
+app.pgEditHomeLocationShowLoc();
+});
+
+};
+//get the record to be saved and put it in a record array
+function pgAddHomeGetRec(){
+//define the new record
+var HomeRec
+HomeRec = {};
+HomeRec.Address = $('#pgAddHomeAddress').val();
+HomeRec.Picture = $('#pgAddHomePicture').val();
+HomeRec.Location = $('#pgAddHomeLocation').val();
+return HomeRec;
+}
+
+//get the record to be saved and put it in a record array
+function pgEditHomeGetRec(){
+//define the new record
+var HomeRec
+HomeRec = {};
+HomeRec.Address = $('#pgEditHomeAddress').val();
+HomeRec.Picture = $('#pgEditHomePicture').val();
+HomeRec.Location = $('#pgEditHomeLocation').val();
+return HomeRec;
+}
+
+//clear the forms for new data entry
+function pgAddHomeClear(){
+$('#pgAddHomeAddress').val('');
+$('#pgAddHomePicture').val('');
+$('#pgAddHomeLocation').val('');
+}
+
+//clear the forms for new data entry
+function pgEditHomeClear(){
+$('#pgEditHomeAddress').val('');
+$('#pgEditHomePicture').val('');
+$('#pgEditHomeLocation').val('');
+}
+
+//set camera options
+app.pgAddHomePictureGet = function(){
+var cameraOptions = {};
+cameraOptions.quality = 100;
+cameraOptions.destinationType = Camera.DestinationType.FILE_URI;
+cameraOptions.encodingType = Camera.EncodingType.PNG;
+cameraOptions.sourceType = Camera.PictureSourceType.CAMERA;
+cameraOptions.allowEdit = true;
+cameraOptions.saveToPhotoAlbum = true;
+cameraOptions.cameraDirection = Camera.Direction.BACK;
+navigator.camera.getPicture(app.pgAddHomePictureSuccess, app.pgAddHomePictureError, cameraOptions);
+};
+app.pgAddHomePictureSuccess = function(photoUri){
+var img = document.getElementById('pgAddHomePicture');
+img.style.display = 'block';
+img.src = photoUri;
+};
+
+app.pgAddHomePictureError = function(){
+};
+
+
+//set camera options
+app.pgEditHomePictureGet = function(){
+var cameraOptions = {};
+cameraOptions.quality = 100;
+cameraOptions.destinationType = Camera.DestinationType.FILE_URI;
+cameraOptions.encodingType = Camera.EncodingType.PNG;
+cameraOptions.sourceType = Camera.PictureSourceType.CAMERA;
+cameraOptions.allowEdit = true;
+cameraOptions.saveToPhotoAlbum = true;
+cameraOptions.cameraDirection = Camera.Direction.BACK;
+navigator.camera.getPicture(app.pgEditHomePictureSuccess, app.pgEditHomePictureError, cameraOptions);
+};
+app.pgEditHomePictureSuccess = function(photoUri){
+var img = document.getElementById('pgEditHomePicture');
+img.style.display = 'block';
+img.src = photoUri;
+};
+
+app.pgEditHomePictureError = function(){
+};
+
+
+//get the picture location
+app.pgAddHomeLocationGetLoc = function(){
+// get the user's gps coordinates and display map
+//check if geolocation is supported first
+var mapObj = document.getElementById('pgAddHomeLocationmap');
+if (!navigator.geolocation){
+mapObj.innerHTML = '<p>Geolocation Is Not supported by your browser</p>';
+$('#pgAddHomeLocationLat').val();
+$('#pgAddHomeLocationLng').val();
+return;
+}
+mapObj.innerHTML = '<p>Locating…</p>';
+// geolocation exists, find the location
+var options = {};
+options.maximumAge = 3000;
+options.timeout = 5000;
+options.enableHighAccuracy = true;
+navigator.geolocation.getCurrentPosition(app.pgAddHomeLocationLoadMap, app.pgAddHomeLocationGeoError, options);
+};
+//load the user co-ordinates
+app.pgAddHomeLocationLoadMap = function(position){
+var latitude = position.coords.latitude;
+var longitude = position.coords.longitude;
+$('#pgAddHomeLocationLat').val(latitude);
+
+$('#pgAddHomeLocationLng').val(longitude);
+
+var mapObj = document.getElementById('pgAddHomeLocationmap');
+var img = new Image();
+img.class = 'marker';
+img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&maptype=roadmap&zoom=15&size=300x300&sensor=false";
+mapObj.innerHTML = '<p>Your Position</p>';
+mapObj.appendChild(img);
+};
+// show error when we cant get the map.
+app.pgAddHomeLocationGeoError = function(){
+var mapObj = document.getElementById('pgAddHomeLocationmap');
+mapObj.innerHTML = 'Unable To retrieve your location';
+$('#pgAddHomeLocationLat').val();
+$('#pgAddHomeLocationLng').val();
+};
+//show the location
+app.pgAddHomeLocationShowLoc = function(){
+// get the user's gps coordinates and display map
+//check if geolocation is supported first
+var mapObj = document.getElementById('pgAddHomeLocationmap');
+if (!navigator.geolocation){
+mapObj.innerHTML = '<p>Geolocation Is Not supported by your browser</p>';
+return;
+}
+mapObj.innerHTML = '<p>Locating…</p>';
+// geolocation exists, find the location
+var latitude = $('#pgAddHomeLocationLat').val();
+var longitude = $('#pgAddHomeLocationLng').val();
+app.pgAddHomeLocationShowMap(latitude,longitude);
+};
+//load the user co-ordinates
+app.pgAddHomeLocationShowMap = function(latitude,longitude){
+var mapObj = document.getElementById('pgAddHomeLocationmap');
+var img = new Image();
+img.class = 'marker';
+img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&maptype=roadmap&zoom=15&size=300x300&sensor=false";
+mapObj.innerHTML = '<p>Your Position</p>';
+mapObj.appendChild(img);
+};
+// show error when we cant get the map.
+app.pgAddHomeLocationGeoError = function(){
+var mapObj = document.getElementById('pgAddHomeLocationmap');
+mapObj.innerHTML = 'Unable To retrieve your location';
+$('#pgAddHomeLocationLat').val();
+$('#pgAddHomeLocationLng').val();
+};
+
+//get the picture location
+app.pgEditHomeLocationGetLoc = function(){
+// get the user's gps coordinates and display map
+//check if geolocation is supported first
+var mapObj = document.getElementById('pgEditHomeLocationmap');
+if (!navigator.geolocation){
+mapObj.innerHTML = '<p>Geolocation Is Not supported by your browser</p>';
+$('#pgEditHomeLocationLat').val();
+$('#pgEditHomeLocationLng').val();
+return;
+}
+mapObj.innerHTML = '<p>Locating…</p>';
+// geolocation exists, find the location
+var options = {};
+options.maximumAge = 3000;
+options.timeout = 5000;
+options.enableHighAccuracy = true;
+navigator.geolocation.getCurrentPosition(app.pgEditHomeLocationLoadMap, app.pgEditHomeLocationGeoError, options);
+};
+//load the user co-ordinates
+app.pgEditHomeLocationLoadMap = function(position){
+var latitude = position.coords.latitude;
+var longitude = position.coords.longitude;
+$('#pgEditHomeLocationLat').val(latitude);
+
+$('#pgEditHomeLocationLng').val(longitude);
+
+var mapObj = document.getElementById('pgEditHomeLocationmap');
+var img = new Image();
+img.class = 'marker';
+img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&maptype=roadmap&zoom=15&size=300x300&sensor=false";
+mapObj.innerHTML = '<p>Your Position</p>';
+mapObj.appendChild(img);
+};
+// show error when we cant get the map.
+app.pgEditHomeLocationGeoError = function(){
+var mapObj = document.getElementById('pgEditHomeLocationmap');
+mapObj.innerHTML = 'Unable To retrieve your location';
+$('#pgEditHomeLocationLat').val();
+$('#pgEditHomeLocationLng').val();
+};
+//show the location
+app.pgEditHomeLocationShowLoc = function(){
+// get the user's gps coordinates and display map
+//check if geolocation is supported first
+var mapObj = document.getElementById('pgEditHomeLocationmap');
+if (!navigator.geolocation){
+mapObj.innerHTML = '<p>Geolocation Is Not supported by your browser</p>';
+return;
+}
+mapObj.innerHTML = '<p>Locating…</p>';
+// geolocation exists, find the location
+var latitude = $('#pgEditHomeLocationLat').val();
+var longitude = $('#pgEditHomeLocationLng').val();
+app.pgEditHomeLocationShowMap(latitude,longitude);
+};
+//load the user co-ordinates
+app.pgEditHomeLocationShowMap = function(latitude,longitude){
+var mapObj = document.getElementById('pgEditHomeLocationmap');
+var img = new Image();
+img.class = 'marker';
+img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&maptype=roadmap&zoom=15&size=300x300&sensor=false";
+mapObj.innerHTML = '<p>Your Position</p>';
+mapObj.appendChild(img);
+};
+// show error when we cant get the map.
+app.pgEditHomeLocationGeoError = function(){
+var mapObj = document.getElementById('pgEditHomeLocationmap');
+mapObj.innerHTML = 'Unable To retrieve your location';
+$('#pgEditHomeLocationLat').val();
+$('#pgEditHomeLocationLng').val();
+};
+
+app.addHome = function(HomeRec){
+// get Home records.
+var HomesObj = app.getHomes();
+// define a record object to store the current details
+var Address = HomeRec.Address;
+Address = Address.replace(/ /g,'-');
+HomesObj[Address] = HomeRec;
+localStorage['picturelocation-homes'] = JSON.stringify(HomesObj);
+// clear the form fields
+pgAddHomeClear();
+//which page are we coming from, if from sign in go back to it
+var pgFrom = $('#pgAddHome').data('from');
+switch (pgFrom) {
+case "pgSignIn":
+$.mobile.changePage('#pgSignIn', {transition: 'slide'});
+break;
+}
+};
+
+app.editHome = function(Address){
+// get Home records.
+var HomesObj = app.getHomes();
+// lookup specific Home
+Address = Address.replace(/ /g,'-');
+var HomeRec = HomesObj[Address];
+$('#pgEditHome').data('url', Address);
+$('#pgEditHomeDelete').data('href', Address);
+$('#pgEditHomeAddress').attr('readonly', 'readonly');
+$('#pgEditHomeAddress').attr('data-clear-btn', 'false');
+$('#pgEditHomeAddress').val(HomeRec.Address);
+$('#pgEditHomePicture').val(HomeRec.Picture);
+$('#pgEditHomeLocation').val(HomeRec.Location);
+};
+
+app.updateHome = function(HomeRecNew){
+// get Home records.
+var HomesObj = app.getHomes();
+// lookup specific Home
+var Address = HomeRecNew.Address;
+Address = Address.replace(/ /g,'-');
+var HomeRec = HomesObj[Address];
+// assign new values to read record
+HomeRec.Address = HomeRecNew.Address;
+HomeRec.Picture = HomeRecNew.Picture;
+HomeRec.Location = HomeRecNew.Location;
+HomesObj[Address] = HomeRec;
+localStorage['picturelocation-homes'] = JSON.stringify(HomesObj);
+// clear the form fields
+pgEditHomeClear();
+// show the page to display after a record is deleted
+$.mobile.changePage('#pgHome', {transition: 'slide'});
+};
+
+app.deleteHome = function(Address){
+// clear the set values// get the Home records from localStorage
+var HomesObj = app.getHomes();
+// delete selected Home
+delete HomesObj[Address];
+// write it back to localStorage
+localStorage['picturelocation-homes'] = JSON.stringify(HomesObj);
+// show the page to display after a record is deleted
+$.mobile.changePage('#pgHome', {transition: 'slide'});
+};
+
+app.getHomes = function(){
+// get Home records
+var HomesObj = localStorage['picturelocation-homes'];
+if (!HomesObj){
+HomesObj = {};
+localStorage['picturelocation-homes'] = JSON.stringify(HomesObj);
+} else {
+HomesObj = JSON.parse(HomesObj);
+}
+return HomesObj;
+};
+
+app.displayHomes = function(){
+// get Home records.
+var HomesObj = app.getHomes();
+// create an empty string to contain html
+var html = '';
+// make sure your iterators are properly scoped
+var n;
+// loop over notes
+for (n in HomesObj){
+var nLnk = n.replace(/-/g,' ');
+html += HomeLi.replace(/ID/g,nLnk).replace(/LINK/g,n);
+}
+$('#pgHomeList').html(HomeHdr + html).listview('refresh');
+};
+
+app.checkForHomesStorage = function(){
+var HomesObj = app.getHomes();
+// are there existing Home records?
+if (!$.isEmptyObject(HomesObj)) {
+// yes there are. pass them off to be displayed
+app.displayHomes();
+} else {
+// nope, just show the placeholder
+$('#pgHomeList').html(HomeHdr + noHome).listview('refresh');
+}
+};
+
+app.BindDevice = function(){
+document.addEventListener('deviceready', app.onDeviceReady, false);
+};
+
+app.onDeviceReady = function(){
+pictureSource = navigator.camera.PictureSourceType;
+destinationType = navigator.camera.DestinationType;
+isPhoneGapReady = true;
+};
+
+
+app.init();
+})(PictureLocation);
+});
+
+</script>
+</body>
+</html>
